@@ -35,5 +35,3 @@ TODO
 
 * Requirements are currently automatically installed on registration. This
   ought to be optionally initiated by the user.
-* Output of install command is only shown on failure, which means blender
-  kind of looks like it's hung during installation.
