@@ -8,8 +8,6 @@ The idea is to make it installable as an add-on. I got a bit distracted so it's
 not really finished yet. However if you're lucky you might get it to work as
 follows:
 
-* Copy the FacialMotionCapture_v2 folder to your add-ons folder (or symlink, or
-  use a zip file, or whatever).
 * Download the code as a zip file from github (the green "Code" button, followed by
   "Download ZIP")
 * Download trained model to your home directory:
