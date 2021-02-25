@@ -225,7 +225,7 @@ class PythonRequirements():
         for requirement in self._requirements:
             if requirement in missing_requirements:
                 print(f"Installing package {requirement.package_spec}")
-                result = subprocess.run(
+                result = subprocess.Popen(
                     [
                         sys.executable,
                         '-m',
@@ -234,13 +234,14 @@ class PythonRequirements():
                         '--prefer-binary',
                         requirement.package_spec
                     ],
-                    capture_output=True
+                    stderr=subprocess.STDOUT,
+                    stdout=subprocess.PIPE,
                 )
+                for line in iter(result.stdout.readline, b''):
+                    print(line.rstrip().decode())
                 if result.returncode:
                     print("=="*40)
                     print("!!!INSTALLATION FAILED!!!")
-                    print(result.stdout.decode())
-                    print(result.stderr.decode())
                     print("=="*40)
                 else:
                     print("Installation successful")
