@@ -2,6 +2,7 @@ import bpy
 import cv2
 import time
 import numpy
+import os
 
 # Download trained model (lbfmodel.yaml)
 # https://github.com/kurnianggoro/GSOC2017/tree/master/data
@@ -27,6 +28,7 @@ import numpy
 # python -m pip install --upgrade pip
 # python -m pip install opencv-contrib-python numpy
 
+
 class OpenCVAnimOperator(bpy.types.Operator):
     """Operator which runs its self from a timer"""
     bl_idname = "wm.opencv_operator"
@@ -34,10 +36,11 @@ class OpenCVAnimOperator(bpy.types.Operator):
     
     # Set paths to trained models downloaded above
     face_detect_path = cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-    #landmark_model_path = "/home/username/Documents/Vincent/lbfmodel.yaml"  #Linux
-    #landmark_model_path = "/Users/username/Downloads/lbfmodel.yaml"         #Mac
-    landmark_model_path = "C:\\Users\\username\\Downloads\\lbfmodel.yaml"    #Windows
-    
+    landmark_model_path = os.path.join(
+        os.path.expanduser('~'),
+        "lbfmodel.yaml"
+    )
+
     # Load models
     fm = cv2.face.createFacemarkLBF()
     fm.loadModel(landmark_model_path)
