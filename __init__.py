@@ -1,3 +1,4 @@
+import os
 from .blender_pydeps import PythonRequirements
 
 import bpy
@@ -22,17 +23,29 @@ def check_opencv_contrib_python(module_name):
 
 
 python_requirements = PythonRequirements(
-[
-    ('wheel', __import__),
-    ('opencv-python', lambda module_name: __import__('cv2')),
-    ('opencv-contrib-python', check_opencv_contrib_python),
-    ('numpy', __import__),
-]
+    [
+        ('wheel', __import__),
+        ('opencv-python', lambda module_name: __import__('cv2')),
+        ('opencv-contrib-python', check_opencv_contrib_python),
+        ('imutils', __import__),
+        ('numpy', __import__),
+        ('dlib', __import__),
+    ]
 )
+
 
 def register():
     print("Checking requirements...")
-    python_requirements.install_requirements()
+    _environ = dict(os.environ)
+    try:
+        # This path currently works on my machine, might need to be modified
+        # elsewhere / elsewhen
+        os.environ['C_INCLUDE_PATH'] = "/usr/include/python3.7m"
+        os.environ['CPLUS_INCLUDE_PATH'] = "/usr/include/python3.7m"
+        python_requirements.install_requirements()
+    finally:
+        os.environ.clear()
+        os.environ.update(_environ)
     from .OpenCVAnim import OBJECT_MT_OpenCVPanel
     from .OpenCVAnimOperator import OpenCVAnimOperator
     bpy.utils.register_class(OpenCVAnimOperator)

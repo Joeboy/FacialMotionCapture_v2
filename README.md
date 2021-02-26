@@ -1,3 +1,8 @@
+dlib branch - this is a packaged version of jkirsons' original code, which uses
+the dlib python package. Because dlib has to be built from source, it won't
+install easily on most end-user machines. However this version works on *my*
+machine (Ubuntu 20.10).
+
 # FacialMotionCapture_v2 (add-on edition)
 
 This is a fork of jkirsons' https://github.com/jkirsons/FacialMotionCapture_v2.
